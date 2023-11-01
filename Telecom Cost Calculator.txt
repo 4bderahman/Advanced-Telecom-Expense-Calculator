@@ -1,0 +1,51 @@
+Algorithme CalculerCoutMensuel
+
+FONCTION  calculer_cout(duree: entier) 
+VARIABLES
+    tableau: couts_abonnement[200, 100, 50, 20, 0] : reel
+    tableau: minutes_gratuites [inf, 120, 60, 30, 0]: reel
+    tableau: cout_par_minute [0, 0.5, 1, 1.5, 2]: reel
+    tableau: couts_mensuels []: reel
+    i: entier
+DEBUT
+    POUR i DE 1 A 5 pas 1 faire
+        minutes_supplementaires = duree - minutes_gratuites[i]
+        SI 
+            minutes_supplementaires < 0 ALORS
+            minutes_supplementaires = 0
+        FIN SI
+        couts_mensuels[i] = couts_abonnement[i] + (minutes_supplementaires * cout_par_minute[i])
+    FIN POUR
+    RETOURNE couts_mensuels
+FIN
+
+VARIABLES
+    couts: tableau [200, 100, 50, 20, 0] : reel
+    choix, duree, i: entier
+
+DEBUT
+    REPETER
+        ecrire("Menu:")
+        ecrire("1- Entrer la durée de communication")
+        ecrire("2- Afficher la liste des coûts mensuels par offre")
+        ecrire("3- Afficher l'offre la plus avantageuse (coût le plus bas)")
+        ecrire("4- Quitter le programme")
+
+        lire(choix)
+
+        SI choix = 1 ALORS
+            ecrire("Entrez la durée de communication en minutes: ")
+            lire(duree)
+            couts = calculer_cout(duree)
+        SINON SI choix = 2 ALORS
+            POUR i DE 1 A 5 FAIRE
+                ecrire("Offre ", i, ": ", couts[i], "DH")
+            FIN POUR
+        SINON 
+            SI choix = 3 ALORS
+                ecrire("L'offre la plus avantageuse est l'offre 5 avec un coût de 0 DH")
+            FIN SI
+        FIN SI
+    JUSQU'A choix = 4
+
+FIN
